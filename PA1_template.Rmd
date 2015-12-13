@@ -6,10 +6,9 @@ echo = TRUE          # Always make code visible
 options(scipen = 1)  # Turn off scientific notations for numbers
 ```
 
-## Plotting System and Methods for Imputation
+## Plotting System
 ```{r plotting systems, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
 library(ggplot2)
-library(Hmisc)
 ```
 
 ## Loading and preprocessing the data
@@ -73,12 +72,13 @@ missing = sum(is.na(activity))
 
 ### 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-### My strategy is to use the imputed mean -- impute(activity$steps, FUN=mean)
+### My strategy is to use the column mean to fill in the data 
 ### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
-```{r imputed mean}
+```{r fill missing data, warning=FALSE, message=FALSE}
 newData <- activity
-newData$steps <- impute(activity$steps, FUN=mean)
-newData$interval <- impute(activity$interval, FUN=mean)
+for(i in 1:ncol(newData)){
+  newData[is.na(newData[,i]), i] <- mean(newData[,i], na.rm = TRUE)
+}
 stepsDayImpute <- aggregate(newData$steps, list(nbr=as.numeric(newData$date), date=newData$date), FUN=sum)
 ```
 
@@ -102,8 +102,15 @@ stepsMedianImpute <- median(stepsDayImpute$x)
 
 * Mean: `r stepsMean`
 * Median:  `r stepsMedian`
-* Difference of old Mean from new Mean (Imputed): `r stepsMean - stepsMeanImpute`
-* Difference of old Median from new Median (Imputed): `r stepsMedian - stepsMedianImpute`
+* Difference of new Mean (Imputed) from old Mean: `r stepsMeanImpute - stepsMean`
+* Difference of new Median (Imputed) from old Median: `r stepsMedianImpute - stepsMedian`
 
-### The values do not differ hence there is no impact to this dataset using the inmpute means for the missing data.
+### The values differ hence there is an impact to the imputed dataset - there are more steps taken than the non-imputed (i.e., original dataset).
+
+## Are there differences in activity patterns between weekdays and weekends?
+
+### 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+
+### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
+
 
