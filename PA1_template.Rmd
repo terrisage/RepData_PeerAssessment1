@@ -114,6 +114,7 @@ stepsMedianImpute <- median(stepsDayImpute$x)
 newData$factor <-  ifelse(as.POSIXlt(newData$date)$wday %in% c(0,6), 'weekend', 'weekday')
 ```
 
+
 ### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 ```{r panel plot}
 avgSteps <- aggregate(data=newData, steps ~ interval + factor, FUN=mean)
