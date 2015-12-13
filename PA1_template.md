@@ -106,7 +106,7 @@ ggplot(stepsDayImpute, aes(nbr, x)) +
   labs(title = "Histogram of Total Number of Steps Taken Each Day (Imputed)", x = "Day", y = "Total Number of Steps")
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png) 
+![plot of chunk histogram imputed](figure/histogram imputed-1.png) 
 
 ### 4a. Calculate and report the mean and median total number of steps taken per day.
 
