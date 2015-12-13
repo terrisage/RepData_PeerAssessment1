@@ -68,8 +68,10 @@ img {
 <pre class="r"><code>echo = TRUE          # Always make code visible
 options(scipen = 1)  # Turn off scientific notations for numbers</code></pre>
 </div>
-<div id="plotting-system" class="section level2">
-<h2>Plotting System</h2>
+<div id="plotting-system-and-methods-for-imputation" class="section level2">
+<h2>Plotting System and Methods for Imputation</h2>
+<pre class="r"><code>library(ggplot2)
+library(Hmisc)</code></pre>
 </div>
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
@@ -125,8 +127,33 @@ ggplot(avg, aes(interval, steps)) +
 <h3>2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?</h3>
 <pre class="r"><code>maxSteps = avg[avg$steps == max(avg$steps), ]</code></pre>
 <ul>
-<li>Interval: 835 With Maxium Steps of: 206.1698113</li>
+<li>5-Minute Interval: 835 Has Maxium Steps of: 206.1698113</li>
 </ul>
+</div>
+</div>
+<div id="imputing-missing-values" class="section level2">
+<h2>Imputing missing values</h2>
+<div id="calculate-and-report-the-total-number-of-missing-values-in-the-dataset-i.e.the-total-number-of-rows-with-nas" class="section level3">
+<h3>1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)</h3>
+<pre class="r"><code>missing = sum(is.na(activity))</code></pre>
+<ul>
+<li>Total number of missing values: 2304</li>
+</ul>
+</div>
+<div id="devise-a-strategy-for-filling-in-all-of-the-missing-values-in-the-dataset.-the-strategy-does-not-need-to-be-sophisticated.-for-example-you-could-use-the-meanmedian-for-that-day-or-the-mean-for-that-5-minute-interval-etc." class="section level3">
+<h3>2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.</h3>
+</div>
+<div id="my-strategy-is-to-use-the-imputed-mean" class="section level3">
+<h3>My strategy is to use the imputed mean</h3>
+</div>
+<div id="create-a-new-dataset-that-is-equal-to-the-original-dataset-but-with-the-missing-data-filled-in." class="section level3">
+<h3>3. Create a new dataset that is equal to the original dataset but with the missing data filled in.</h3>
+<pre class="r"><code>newData &lt;- activity
+newData$steps &lt;- impute(activity$steps, FUN=mean)
+newData$interval &lt;- impute(activity$interval, FUN=mean)</code></pre>
+</div>
+<div id="make-a-histogram-of-the-total-number-of-steps-taken-each-day-and-calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day.-do-these-values-differ-from-the-estimates-from-the-first-part-of-the-assignment-what-is-the-impact-of-imputing-missing-data-on-the-estimates-of-the-total-daily-number-of-steps" class="section level3">
+<h3>4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?</h3>
 </div>
 </div>
 </div>
