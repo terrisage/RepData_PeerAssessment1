@@ -124,3 +124,4 @@ ggplot(avgSteps, aes(interval, steps)) +
 ```
 
 
+
