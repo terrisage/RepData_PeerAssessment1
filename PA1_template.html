@@ -338,7 +338,7 @@ stepsMedianImpute &lt;- median(stepsDayImpute$x)
 
 <h3>1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</h3>
 
-<pre><code class="r">newData$factor &lt;-  ifelse(as.POSIXlt(newData$date)$wday %in% c(0,6), &#39;weekend&#39;, &#39;weekday&#39;)
+<pre><code class="r">newData$factor &lt;- ifelse(weekdays(as.Date(newData$date)) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;), &quot;weekend&quot;, &quot;weekday&quot;)
 </code></pre>
 
 <h3>2. Make a panel plot containing a time series plot (i.e. type = &ldquo;l&rdquo;) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).</h3>
