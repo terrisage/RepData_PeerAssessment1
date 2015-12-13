@@ -91,9 +91,7 @@ missing = sum(is.na(activity))
 
 ```r
 newData <- activity
-for(i in 1:ncol(newData)){
-  newData[is.na(newData[,i]), i] <- mean(newData[,i], na.rm = TRUE)
-}
+newData[is.na(newData[,1]), 1] <- mean(newData[,1], na.rm = TRUE)
 stepsDayImpute <- aggregate(newData$steps, list(nbr=as.numeric(newData$date), date=newData$date), FUN=sum)
 ```
 

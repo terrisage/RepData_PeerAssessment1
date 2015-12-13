@@ -297,9 +297,7 @@ ggplot(avg, aes(interval, steps)) +
 <h3>3. Create a new dataset that is equal to the original dataset but with the missing data filled in.</h3>
 
 <pre><code class="r">newData &lt;- activity
-for(i in 1:ncol(newData)){
-  newData[is.na(newData[,i]), i] &lt;- mean(newData[,i], na.rm = TRUE)
-}
+newData[is.na(newData[,1]), 1] &lt;- mean(newData[,1], na.rm = TRUE)
 stepsDayImpute &lt;- aggregate(newData$steps, list(nbr=as.numeric(newData$date), date=newData$date), FUN=sum)
 </code></pre>
 
