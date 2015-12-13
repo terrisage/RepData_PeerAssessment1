@@ -33,18 +33,16 @@ stepsDay <- aggregate(activity$steps, list(nbr=as.numeric(activity$date), date=a
 
 ### 2. Make a histogram of the total number of steps taken each day
 ```{r histogram}
-ggplot (stepsPerDay, aes(nbr, x)) + 
+ggplot (stepsDay, aes(nbr, x)) + 
   geom_bar(stat="identity", width=0.5) +
   labs(title = "Histogram of Total Number of Steps Taken Each Day", x = "Day", y = "Total Number of Steps Taken Each Day")
 ```
 
 ### 3. Calculate and report the mean and median of the total number of steps taken per day
 ```{r report mean and median}
-#stepsMean <- mean(stepsPerDay)
-#stepsMedian <- median(stepsPerDay)
+stepsMean <- mean(stepsDay$x)
+stepsMedian <- median(stepsDay$x)
 ```
 * Mean: `r stepsMean`
 * Median:  `r stepsMedian`
 
-
-```
