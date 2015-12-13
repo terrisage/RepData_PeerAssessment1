@@ -111,15 +111,15 @@ stepsMedianImpute <- median(stepsDayImpute$x)
 
 ### 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 ```{r new factor variable}
-newData$dateType <-  ifelse(as.POSIXlt(newData$date)$wday %in% c(0,6), 'weekend', 'weekday')
+newData$factor <-  ifelse(as.POSIXlt(newData$date)$wday %in% c(0,6), 'weekend', 'weekday')
 ```
 
 ### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 ```{r panel plot}
-avgSteps <- aggregate(data=newData, steps ~ interval + dateType, FUN=mean)
+avgSteps <- aggregate(data=newData, steps ~ interval + factor, FUN=mean)
 ggplot(avgSteps, aes(interval, steps)) + 
     geom_line(width=0.5) + 
-    facet_grid(dateType ~ .) +
+    facet_grid(factor ~ .) +
     labs(title = "Panel Plot", x = "5-minute Interval", y = "Average Number of Steps Taken")
 ```
 
